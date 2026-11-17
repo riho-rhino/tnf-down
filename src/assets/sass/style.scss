@@ -1,4 +1,13 @@
 @use './_reset';
 @use './_mixin' as *;
 @use './_common' as c;
-
+@use './_modules/_parts';
+@use './_top/_mv';
+@use './_top/_lead';
+@use './_top/_anchor';
+@use './_modules/_category';
+@use './_modules/_item';
+@use './_modules/_allitems';
+@use './_modules/_ending';
+@use './_top/_index-menu';
+@use './_modules/_parallax';

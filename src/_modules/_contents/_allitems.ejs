@@ -1,0 +1,51 @@
+<%
+  // ALL ITEMS のデータ
+  // 画像は list{カテゴリー番号}_{1〜4}.jpg
+  const dummyItem = { name: 'Novelty Baltoro Light Jacket', price: '￥68,200（tax in）', url: '' }
+  const lists = [
+    { id: 'new', en: 'NEW', ja: '新作', items: [dummyItem, dummyItem, dummyItem, dummyItem] },
+    { id: 'icon', en: 'ICON', ja: '定番', items: [dummyItem, dummyItem, dummyItem, dummyItem] },
+    { id: 'exclusive', en: 'EXCLUSIVE', ja: '別注モデル', items: [dummyItem, dummyItem, dummyItem, dummyItem] },
+  ]
+%>
+<section class="allitems" id="allitems">
+    <div class="allitems-inner">
+        <div class="category-ttl-wrap">
+            <h2 class="category-ttl en-bold">ALL ITEMS</h2>
+            <p class="category-subttl">アイテム一覧</p>
+        </div>
+
+        <% lists.forEach((list, i) => { %>
+        <div class="allitems-category" id="all-<%= list.id %>">
+            <div class="allitems-head">
+                <div>
+                    <h3 class="allitems-en en"><%= list.en %></h3>
+                    <p class="allitems-ja"><%= list.ja %></p>
+                </div>
+                <p class="allitems-styles">( <%= list.items.length %> STYLES )</p>
+            </div>
+            <ul class="allitems-list">
+                <% list.items.forEach((item, j) => { %>
+                <li>
+                    <a href="<%= item.url %>">
+                        <div class="allitems-img">
+                            <img src="<%= rootURL %>/assets/img/list<%= i + 1 %>_<%= j + 1 %>.jpg" alt="">
+                        </div>
+                        <p class="allitems-name en"><span><%= item.name %></span></p>
+                        <p class="allitems-price en"><%= item.price %></p>
+                    </a>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+        <% }) %>
+
+        <div class="more-btn allitems-btn">
+            <a href="">
+                <span class="more-btn-en en">VIEW ALL PRODUCT</span>
+                <span class="more-btn-ja">ほかのダウンも見る</span>
+                <span class="tri tri-right"></span>
+            </a>
+        </div>
+    </div>
+</section>

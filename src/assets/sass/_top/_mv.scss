@@ -1,0 +1,102 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+// 下の余白は、デザインでINDEXボタンが置かれていた分（ボタンは画面下部に追従：_index-menu.scss）
+.mv-wrap{
+    position: relative;
+    padding: spc(40) 0 spc(132);
+    @include pc{
+        padding: pcc(120) 0 pcc(121);
+    }
+}
+
+.mv-inner{
+    position: relative;
+    padding: 0 spc(40);
+    @include pc{
+        display: flex;
+        justify-content: space-between;
+        padding: 0 pcc(100);
+    }
+}
+
+.mv-head{
+    @include pc{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+}
+
+.mv-season{
+    margin-top: spf(150);
+    text-align: right;
+    @include pc{
+        margin-top: auto;
+        margin-bottom: pcf(100);
+        padding-left: calc(495 / 869) * 100%;
+        text-align: left;
+    }
+}
+
+.mv-photo{
+    display: flex;
+    justify-content: space-between;
+    margin-top: spf(162);
+    &-main{
+        width: calc(380 / 670) * 100%;
+        aspect-ratio: 380 / 460;
+    }
+    &-sub{
+        width: calc(280 / 670) * 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: spf(10);
+        row-gap: spf(10);
+    }
+    &-item{
+        aspect-ratio: 135 / 225;
+        &1{
+            grid-column: 1;
+            grid-row: 1;
+        }
+        &2{
+            grid-column: 1;
+            grid-row: 2;
+        }
+        &3{
+            grid-column: 2;
+            grid-row: 2;
+        }
+    }
+    img{
+        height: 100% !important;
+        object-fit: cover;
+    }
+    @include pc{
+        width: calc(1666 / 2535) * 100%;
+        margin-top: 0;
+        &-main{
+            width: calc(945.04 / 1666) * 100%;
+            aspect-ratio: 945.04 / 1144;
+        }
+        &-sub{
+            width: calc(696.1 / 1666) * 100%;
+            column-gap: pcf(24.6);
+            row-gap: pcf(24.9);
+        }
+    }
+}
+
+.mv-logo{
+    position: absolute;
+    top: 0;
+    right: spc(40);
+    width: spc(110);
+    @include pc{
+        right: pcc(100);
+        width: pcc(175);
+    }
+}

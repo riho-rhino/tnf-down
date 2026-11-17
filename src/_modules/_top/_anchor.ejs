@@ -1,0 +1,34 @@
+<%#
+  カテゴリーへのリンク一覧
+  MV下と、SPのINDEXメニュー（_index-menu.ejs）の2か所で使用
+  isMenu: true のときはINDEXメニュー用（id="index" を付けない）
+%>
+<%
+  const isMenu = locals.isMenu || false
+  const anchors = [
+    { id: 'new', en: 'NEW', ja: '新作', styles: 4, img: 'anchor_1.png' },
+    { id: 'icon', en: 'ICON', ja: '定番', styles: 4, img: 'anchor_2.png' },
+    { id: 'exclusive', en: 'EXCLUSIVE', ja: '別注モデル', styles: 4, img: 'anchor_3.png' },
+  ]
+%>
+<nav class="anchor-wrap"<% if (!isMenu) { %> id="index"<% } %>>
+    <ul class="anchor-list">
+        <% anchors.forEach((anchor) => { %>
+        <li>
+            <a href="#<%= anchor.id %>" class="anchor-link">
+                <div class="anchor-text">
+                    <p class="anchor-en en">
+                        <%= anchor.en %>
+                        <span class="tri tri-down"></span>
+                    </p>
+                    <p class="anchor-ja"><%= anchor.ja %></p>
+                </div>
+                <p class="anchor-styles">( <%= anchor.styles %> STYLES )</p>
+                <div class="anchor-img">
+                    <img src="<%= rootURL %>/assets/img/<%= anchor.img %>" alt="">
+                </div>
+            </a>
+        </li>
+        <% }) %>
+    </ul>
+</nav>

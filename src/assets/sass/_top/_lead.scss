@@ -1,0 +1,29 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+.lead-anchor-wrap{
+    padding: spc(69) spc(40) spc(44);
+    @include pc{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: pcc(150) pcc(100) pcc(100);
+    }
+}
+
+.lead-wrap{
+    .lead{
+        font-size: spf(26);
+        line-height: calc(46 / 26);
+        text-align: justify;
+    }
+    @include pc{
+        width: calc(1300 / 2535) * 100%;
+        .lead{
+            font-size: pcf(30);
+            line-height: 2;
+        }
+    }
+}

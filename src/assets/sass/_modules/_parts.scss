@@ -1,0 +1,113 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+
+// ▼ ▶ の三角アイコン（色は文字色に合わせる）
+.tri{
+    display: block;
+    flex-shrink: 0;
+    background: currentColor;
+    &-down{
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+    &-right{
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+}
+
+
+// ALL NEW ITEMS / VIEW ALL PRODUCT ボタン
+.more-btn{
+    width: spc(670);
+    margin: 0 auto;
+    a{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: spf(116);
+        padding-left: spf(40);
+        border: solid 1px currentColor;
+    }
+    &-en{
+        font-size: spf(30);
+        line-height: 1;
+    }
+    &-ja{
+        font-size: spf(20);
+        line-height: 1;
+        margin-top: spf(12);
+    }
+    .tri{
+        position: absolute;
+        top: 50%;
+        right: spf(40);
+        transform: translateY(-50%);
+        &-down{
+            width: spf(21.65);
+            height: spf(12.75);
+        }
+        &-right{
+            width: spf(12.75);
+            height: spf(21.65);
+        }
+    }
+    @include pc{
+        width: pcc(770);
+        a{
+            height: pcf(156);
+            padding-left: pcf(80);
+        }
+        &-en{
+            font-size: pcf(40);
+        }
+        &-ja{
+            font-size: pcf(24);
+            margin-top: pcf(20);
+        }
+        .tri{
+            right: pcf(80);
+            &-down{
+                width: pcf(30.3);
+                height: pcf(17.25);
+            }
+            &-right{
+                width: pcf(17.25);
+                height: pcf(30.3);
+            }
+        }
+    }
+}
+
+
+// Stay Warm with Down Jacket（MVと最後のビジュアルで共通）
+.main-ttl{
+    font-size: spf(60);
+    line-height: calc(55 / 60);
+    span{
+        font-size: calc(40 / 60) * 1em;
+    }
+    @include pc{
+        font-size: pcf(120);
+        line-height: 1;
+    }
+}
+.main-subttl{
+    font-size: spf(20);
+    line-height: 1.4;
+    margin-top: spf(15);
+    @include pc{
+        font-size: pcf(30);
+        line-height: 1.5;
+        margin-top: pcf(20);
+    }
+}
+.main-season{
+    font-size: spf(24);
+    line-height: 1;
+    @include pc{
+        font-size: pcf(40);
+    }
+}

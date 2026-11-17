@@ -1,0 +1,51 @@
+<%#
+  商品ブロック
+  item.type
+    'a' : 大2枚 + 小1枚（SP：縦並び / PC：大2枚横並び＋テキスト・小）
+    'b' : 2枚（SP：スライダー / PC：2枚横並び）
+    'c' : 大1枚 + 小1枚（SP：縦並び / PC：大1枚＋小・テキスト）
+  画像は item{no}_{1〜3}.jpg
+%>
+<% const img = (n) => `${rootURL}/assets/img/item${item.no}_${n}.jpg` %>
+<div class="item item-<%= item.type %>">
+
+    <% if (item.type === 'a') { %>
+    <figure class="item-img item-img-l js-parallax"><img src="<%= img(1) %>" alt=""></figure>
+    <figure class="item-img item-img-l js-parallax"><img src="<%= img(2) %>" alt=""></figure>
+    <figure class="item-img item-img-s js-float"><img src="<%= img(3) %>" alt=""></figure>
+    <% } %>
+
+    <% if (item.type === 'b') { %>
+    <div class="item-slider">
+        <div class="item-slider-track">
+            <figure class="item-img is-active js-parallax"><img src="<%= img(1) %>" alt=""></figure>
+            <figure class="item-img js-parallax"><img src="<%= img(2) %>" alt=""></figure>
+        </div>
+        <ul class="item-slider-dots">
+            <li class="is-active" role="button" aria-label="1枚目を表示"></li>
+            <li role="button" aria-label="2枚目を表示"></li>
+        </ul>
+    </div>
+    <% } %>
+
+    <% if (item.type === 'c') { %>
+    <figure class="item-img item-img-s js-parallax"><img src="<%= img(1) %>" alt=""></figure>
+    <figure class="item-img item-img-xl js-parallax"><img src="<%= img(2) %>" alt=""></figure>
+    <% } %>
+
+    <div class="item-detail">
+        <p class="item-num">( <%= num %> )</p>
+        <h3 class="item-name en"><a href="<%= item.url %>"><%= item.name %></a></h3>
+        <p class="item-kana"><%= item.kana %></p>
+        <p class="item-price en"><%= item.price %></p>
+        <p class="item-desc"><%= item.desc %></p>
+        <div class="item-styling en">
+            <p class="item-styling-ttl">STYLING ITEMS</p>
+            <ul class="item-styling-list">
+                <% item.styling.forEach((s) => { %>
+                <li><a href="<%= s.url %>"><%= s.name %></a>　<%= s.price %></li>
+                <% }) %>
+            </ul>
+        </div>
+    </div>
+</div>

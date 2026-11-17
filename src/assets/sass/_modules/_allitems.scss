@@ -1,0 +1,125 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+.allitems{
+    padding: spc(150) 0;
+    color: c.$black;
+    background: c.$white;
+    @include pc{
+        padding: pcc(300) 0;
+    }
+}
+
+.allitems-inner{
+    padding: 0 spc(40);
+    @include pc{
+        padding: 0 pcc(100);
+    }
+}
+
+.allitems-category{
+    margin-top: spf(125);
+    border-top: solid 1px currentColor;
+    .category-ttl-wrap + &{
+        margin-top: spf(49);
+    }
+    @include pc{
+        margin-top: pcf(200);
+        .category-ttl-wrap + &{
+            margin-top: pcf(154);
+        }
+    }
+}
+
+.allitems-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+.allitems-en{
+    padding-top: spf(20);
+    font-size: spf(30);
+    font-weight: 400;
+    line-height: 1;
+    @include pc{
+        padding-top: pcf(40);
+        font-size: pcf(60);
+    }
+}
+.allitems-ja{
+    margin-top: spf(11);
+    font-size: spf(20);
+    line-height: 1;
+    @include pc{
+        margin-top: pcf(12);
+        font-size: pcf(30);
+    }
+}
+.allitems-styles{
+    padding-top: spf(20);
+    font-size: spf(20);
+    line-height: 1;
+    @include pc{
+        padding-top: pcf(40);
+        font-size: pcf(30);
+    }
+}
+
+.allitems-list{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: calc(20 / 670) * 100%;
+    row-gap: spf(45);
+    margin-top: spf(35);
+    @include pc{
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: calc(61 / 2535) * 100%;
+        row-gap: pcf(61);
+        margin-top: pcf(73);
+    }
+}
+
+.allitems-img{
+    aspect-ratio: 3 / 4;
+    img{
+        height: 100% !important;
+        object-fit: cover;
+    }
+}
+
+.allitems-name{
+    margin-top: spf(20);
+    font-size: spf(26);
+    line-height: calc(36 / 26);
+    span{
+        text-decoration: underline;
+        text-underline-offset: 0.12em;
+        text-decoration-thickness: 1px;
+    }
+    @include pc{
+        margin-top: pcf(20);
+        font-size: pcf(30);
+        line-height: 1.5;
+    }
+}
+
+.allitems-price{
+    margin-top: spf(10);
+    font-size: spf(22);
+    line-height: 1;
+    @include pc{
+        margin-top: pcf(15);
+        font-size: pcf(28);
+    }
+}
+
+.allitems-btn{
+    width: 100%;
+    margin-top: spf(85);
+    @include pc{
+        width: calc(770 / 2535) * 100%;
+        margin-top: pcf(200);
+    }
+}

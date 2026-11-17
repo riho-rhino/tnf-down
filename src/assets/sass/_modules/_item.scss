@@ -1,0 +1,250 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+// 商品ブロック
+// SPは縦に並べ、PCはflex-wrapで2段に組み替える（並び順はorderで指定）
+.item{
+    & + .item{
+        margin-top: spf(120);
+    }
+    @include pc{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        & + .item{
+            margin-top: pcf(300);
+        }
+    }
+}
+
+.item-img{
+    position: relative;
+    aspect-ratio: 4 / 5;
+    img{
+        height: 100% !important;
+        object-fit: cover;
+    }
+}
+
+.item-detail{
+    margin-top: spf(80);
+    padding: 0 spc(40);
+    @include pc{
+        width: pcc(800);
+        margin: pcf(120) 0 0 pcc(150);
+        padding: 0;
+    }
+}
+
+
+// ---------------------------------
+// type a：大2枚 + 小1枚
+// ---------------------------------
+.item-a{
+    .item-img-l{
+        & + .item-img-l{
+            margin-top: spf(10);
+        }
+    }
+    .item-img-s{
+        z-index: 1;
+        width: spc(400);
+        margin: spf(-137.5) spc(40) 0 auto;
+    }
+    @include pc{
+        .item-img-l{
+            order: 1;
+            width: pcc(1200);
+            margin-left: pcc(150);
+            & + .item-img-l{
+                margin: 0 0 0 pcc(35);
+            }
+        }
+        .item-detail{
+            order: 2;
+        }
+        .item-img-s{
+            order: 3;
+            width: pcc(600);
+            margin: pcf(120) pcc(150) 0 auto;
+        }
+    }
+}
+
+
+// ---------------------------------
+// type b：2枚（SPはスライダー）
+// ---------------------------------
+.item-slider{
+    // SP：画像を重ねて、is-active の1枚をフェードで表示
+    &-track{
+        position: relative;
+        aspect-ratio: 1 / 1;
+        .item-img{
+            position: absolute;
+            inset: 0;
+            aspect-ratio: auto;
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            &.is-active{
+                opacity: 1;
+            }
+        }
+    }
+    &-dots{
+        display: flex;
+        justify-content: flex-end;
+        gap: spf(10);
+        margin-top: spf(40);
+        padding-right: spc(40);
+        li{
+            width: spf(15);
+            height: spf(15);
+            border: solid 1px currentColor;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color .3s ease;
+            &.is-active{
+                background: currentColor;
+            }
+        }
+    }
+    @include pc{
+        width: 100%;
+        &-track{
+            display: flex;
+            aspect-ratio: auto;
+            .item-img{
+                position: relative;
+                inset: auto;
+                width: 50%;
+                aspect-ratio: 4 / 5;
+                opacity: 1;
+                transition: none;
+            }
+        }
+        &-dots{
+            display: none;
+        }
+    }
+}
+
+
+// ---------------------------------
+// type c：大1枚 + 小1枚
+// ---------------------------------
+.item-c{
+    .item-img-s,.item-img-xl{
+        width: spc(670);
+        margin: 0 auto;
+    }
+    .item-img-xl{
+        margin-top: spf(40);
+    }
+    @include pc{
+        .item-img-xl{
+            order: 1;
+            width: pcc(1600);
+            margin: 0 0 0 pcc(567);
+        }
+        .item-img-s{
+            order: 2;
+            width: pcc(600);
+            margin: pcf(120) 0 0 pcc(567);
+        }
+        .item-detail{
+            order: 3;
+            margin-left: pcc(120);
+        }
+    }
+}
+
+
+// ---------------------------------
+// テキスト
+// ---------------------------------
+.item-num{
+    font-size: spf(20);
+    line-height: 1;
+    @include pc{
+        font-size: pcf(40);
+    }
+}
+
+.item-name{
+    margin-top: spf(20);
+    font-size: spf(36);
+    font-weight: 400;
+    line-height: 1;
+    a{
+        text-decoration: underline;
+        text-underline-offset: 0.12em;
+        text-decoration-thickness: 1px;
+    }
+    @include pc{
+        margin-top: pcf(40);
+        font-size: pcf(50);
+    }
+}
+
+.item-kana{
+    margin-top: spf(12);
+    font-size: spf(20);
+    line-height: 1;
+    @include pc{
+        margin-top: pcf(24);
+        font-size: pcf(26);
+    }
+}
+
+.item-price{
+    margin-top: spf(25);
+    font-size: spf(22);
+    line-height: 1;
+    @include pc{
+        margin-top: pcf(34);
+        font-size: pcf(30);
+    }
+}
+
+.item-desc{
+    margin-top: spf(30);
+    font-size: spf(22);
+    line-height: 1.5;
+    text-align: justify;
+    @include pc{
+        margin-top: pcf(30);
+        font-size: pcf(26);
+        line-height: calc(42 / 26);
+    }
+}
+
+.item-styling{
+    margin-top: spf(60);
+    color: var(--sub-color);
+    font-size: spf(22);
+    line-height: 1;
+    &-list{
+        margin-top: spf(20);
+        li + li{
+            margin-top: spf(14);
+        }
+        a{
+            text-decoration: underline;
+            text-underline-offset: 0.15em;
+            text-decoration-thickness: 1px;
+        }
+    }
+    @include pc{
+        margin-top: pcf(60);
+        font-size: pcf(28);
+        &-list{
+            margin-top: pcf(25);
+            li + li{
+                margin-top: pcf(16);
+            }
+        }
+    }
+}

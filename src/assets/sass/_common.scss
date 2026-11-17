@@ -1,15 +1,47 @@
 @use './_reset';
 @use './_mixin' as *;
 
-$spw : 786;
-$pcw : 2880;
+$spw : 750;
+$pcw : 2735;
+
+// color
+$black: #000;
+$white: #fff;
+$gray: #959595;
+$sub-new: #787878;
+$sub-icon: #838383;
+$sub-exclusive: #d3d3d3;
 
 
 
+.tnf-down-wrapper{
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    color: $white;
+    background: $black;
+    letter-spacing: -0.08em;
 
+    img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    ul{
+        list-style: none;
+    }
+    a{
+        color: inherit;
+        text-decoration: none;
+    }
+}
 
 
 body{
+    font-family: "biz-udmincho", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
     &.noscroll{
         overflow: hidden;
     }
@@ -32,4 +64,29 @@ body{
 
 a{
     cursor: pointer;
+}
+
+
+// 欧文：Acumin Pro（Regular 400 / Semibold 600）
+.en {
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -0.05em;
+}
+
+// 和文：BIZ UDMincho
+.ja {
+    font-family: "biz-udmincho", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -0.08em;
+}
+
+// 欧文の太字タイトル（Stay Warm with Down Jacket / NEW など）
+.en-bold {
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: -0.05em;
 }

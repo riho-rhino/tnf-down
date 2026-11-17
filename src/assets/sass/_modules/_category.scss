@@ -1,0 +1,86 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+.category{
+    padding: spc(156) 0 spc(200);
+    &-black{
+        --sub-color: #{c.$sub-new};
+        color: c.$white;
+        background: c.$black;
+    }
+    &-white{
+        --sub-color: #{c.$sub-icon};
+        color: c.$black;
+        background: c.$white;
+    }
+    &-gray{
+        --sub-color: #{c.$sub-exclusive};
+        color: c.$white;
+        background: c.$gray;
+    }
+    @include pc{
+        padding: pcc(265) 0 pcc(300);
+    }
+}
+
+.category-head{
+    padding: 0 spc(40);
+    @include pc{
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0 pcc(100);
+    }
+}
+
+// NEW 新作 / ALL ITEMS アイテム一覧 など（ALL ITEMSでも共通で使用）
+.category-ttl-wrap{
+    display: flex;
+    align-items: flex-start;
+    gap: spf(20);
+    @include pc{
+        gap: pcf(35);
+    }
+}
+.category-ttl{
+    font-size: spf(100);
+    line-height: 1;
+    @include pc{
+        font-size: pcf(150);
+    }
+}
+.category-subttl{
+    font-size: spf(22);
+    line-height: 1;
+    @include pc{
+        font-size: pcf(40);
+    }
+}
+
+.category-lead{
+    margin-top: spf(29);
+    font-size: spf(24);
+    line-height: 1.5;
+    text-align: justify;
+    @include pc{
+        width: calc(1000 / 2535) * 100%;
+        margin-top: pcf(10);
+        font-size: pcf(28);
+    }
+}
+
+.category-items{
+    margin-top: spf(80);
+    @include pc{
+        margin-top: pcf(104);
+    }
+}
+
+.category-btn{
+    margin-top: spf(120);
+    @include pc{
+        margin-top: pcf(300);
+    }
+}

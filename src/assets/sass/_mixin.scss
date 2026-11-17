@@ -5,19 +5,20 @@
   }
 }
 
-// スマホサイズ
+// スマホサイズ（pcと隙間なく切り替わるよう919pxまで）
 @mixin sp {
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 919px) {
     @content;
   }
 }
 
 
+// デザイン幅 SP:750 / PC:2735
 @function spc($value){
   @return calc($value / 750) * 100%;
 }
 @function pcc($value){
-  @return calc($value / 2732) * 100%;
+  @return calc($value / 2735) * 100%;
 }
 
 // fontsize
@@ -26,5 +27,5 @@
   @return calc($value / 750 * 100vw);
 }
 @function pcf($value){
-  @return calc($value / 2880 * 100vw);
+  @return calc($value / 2735 * 100vw);
 }

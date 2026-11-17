@@ -1,0 +1,46 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+// Lenis（なめらかスクロール）公式CSS（node_modules/lenis/dist/lenis.css と同じ内容）
+html.lenis,html.lenis body{
+    height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped{
+    overflow: clip;
+}
+.lenis.lenis-smooth [data-lenis-prevent]{
+    overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe{
+    pointer-events: none;
+}
+.lenis.lenis-autoToggle{
+    transition-property: overflow;
+    transition-duration: 1ms;
+    transition-behavior: allow-discrete;
+}
+
+
+// パララックス
+// .js-parallax：枠の中で画像がゆっくり動く（画像は少し拡大して余白を作る）
+// .js-float  ：要素ごとスクロール速度をずらす
+// 位置の計算は assets/js/_modules/_parallax.js
+.js-parallax{
+    overflow: hidden;
+    img{
+        will-change: transform;
+        transform: scale(1.15);
+    }
+}
+.js-float{
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce){
+    .js-parallax img,
+    .js-float{
+        transform: none !important;
+    }
+}

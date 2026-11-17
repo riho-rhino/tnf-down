@@ -1,0 +1,142 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+// 画面下部に追従するINDEXボタン＋メニュー
+// SP：下から上へ開くアコーディオン（全画面）
+// PC：右からパネルが出て、左側は半透明の黒で覆う
+
+$ease: cubic-bezier(0.65, 0, 0.35, 1);
+
+.index-menu-panel{
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    visibility: hidden;
+    transition: visibility 0s .6s;
+    .index-menu.is-open &{
+        visibility: visible;
+        transition: visibility 0s;
+    }
+}
+
+// PCのみ：パネル以外の部分を暗くする（クリックで閉じる）
+.index-menu-overlay{
+    display: none;
+    @include pc{
+        display: block;
+        position: absolute;
+        // パネルの下には敷かない（重なるとパネルのぼかしが暗くなりすぎるため）
+        inset: 0 pcc(970) 0 0;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity .6s ease;
+        cursor: pointer;
+        .index-menu.is-open &{
+            opacity: 1;
+        }
+    }
+}
+
+.index-menu-drawer{
+    position: absolute;
+    inset: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    color: c.$white;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    // SP：下から上へ開く
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path .6s $ease;
+    .index-menu.is-open &{
+        clip-path: inset(0 0 0 0);
+    }
+    @include pc{
+        left: auto;
+        width: pcc(970);
+        // PC：右から左へ開く
+        clip-path: inset(0 0 0 100%);
+    }
+}
+
+.index-menu-inner{
+    // デザインではヘッダー（SP:96px / PC:215px）の下から余白を空けてリストが始まる
+    padding: spf(196) spc(40) spf(200);
+    opacity: 0;
+    transform: translateY(spf(20));
+    transition: opacity .3s ease, transform .3s ease;
+    .index-menu.is-open &{
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity .4s .3s ease, transform .4s .3s ease;
+    }
+    .anchor-wrap{
+        width: 100%;
+        margin-top: 0;
+    }
+    @include pc{
+        padding: pcf(335) calc(100 / 970) * 100% pcf(250);
+        transform: translateX(pcf(30));
+        .index-menu.is-open &{
+            transform: translateX(0);
+        }
+    }
+}
+
+.index-menu-allitems{
+    width: 100%;
+    margin-top: spf(100);
+    @include pc{
+        width: 100%;
+        margin-top: pcf(120);
+    }
+}
+
+.index-menu-btn{
+    position: fixed;
+    right: spc(40);
+    bottom: spf(38);
+    z-index: 901;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: spf(180);
+    height: spf(68);
+    padding: 0;
+    font-size: spf(26);
+    line-height: 1;
+    color: c.$white;
+    background: c.$black;
+    border: solid 1px c.$white;
+    border-radius: 999px;
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(50px);
+    cursor: pointer;
+    appearance: none;
+    transition: background-color .3s ease, border-color .3s ease;
+    &-close{
+        display: none;
+    }
+    .index-menu.is-open &{
+        &-open{
+            display: none;
+        }
+        &-close{
+            display: block;
+        }
+    }
+    @include pc{
+        right: pcc(100);
+        bottom: pcf(65);
+        width: pcf(266);
+        height: pcf(100);
+        font-size: pcf(32);
+        .index-menu.is-open &{
+            background: rgba(0, 0, 0, 0.4);
+            border-color: #5f5f5f;
+        }
+    }
+}

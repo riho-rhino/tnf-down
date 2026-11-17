@@ -1,0 +1,91 @@
+
+@use '../_reset';
+@use '../_mixin' as *;
+@use '../_common' as c;
+
+.anchor-wrap{
+    margin-top: spf(80);
+    @include pc{
+        width: calc(770 / 2535) * 100%;
+        margin-top: 0;
+    }
+}
+
+.anchor-list{
+    > li{
+        border-top: solid 1px currentColor;
+        & + li{
+            margin-top: spf(10);
+        }
+    }
+    @include pc{
+        > li + li{
+            margin-top: pcf(40);
+        }
+    }
+}
+
+.anchor-link{
+    display: flex;
+    align-items: flex-start;
+}
+
+.anchor-text{
+    flex: 1;
+}
+
+.anchor-en{
+    display: flex;
+    align-items: center;
+    gap: spf(16);
+    padding-top: spf(20);
+    font-size: spf(30);
+    line-height: 1;
+    .tri{
+        width: spf(13);
+        height: spf(7.5);
+    }
+    @include pc{
+        gap: pcf(21);
+        padding-top: pcf(30);
+        font-size: pcf(40);
+        .tri{
+            width: pcf(17.3);
+            height: pcf(9.75);
+        }
+    }
+}
+
+.anchor-ja{
+    margin-top: spf(11);
+    font-size: spf(20);
+    line-height: 1;
+    @include pc{
+        margin-top: pcf(18);
+        font-size: pcf(24);
+    }
+}
+
+.anchor-styles{
+    margin: spf(20) spf(10) 0 0;
+    font-size: spf(20);
+    line-height: 1;
+    white-space: nowrap;
+    @include pc{
+        margin: pcf(30) pcf(10) 0 0;
+        font-size: pcf(24);
+    }
+}
+
+.anchor-img{
+    width: calc(100 / 670) * 100%;
+    aspect-ratio: 100 / 133;
+    img{
+        height: 100% !important;
+        object-fit: cover;
+    }
+    @include pc{
+        width: calc(120 / 770) * 100%;
+        aspect-ratio: 120 / 160;
+    }
+}

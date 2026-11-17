@@ -1,0 +1,26 @@
+<%#
+  画面下部に追従するINDEXボタンと、押すと開くメニュー
+  SP：下から上へ開くアコーディオン（全画面）
+  PC：右からパネルが出て、左側は半透明の黒で覆う
+%>
+<div class="index-menu">
+    <div class="index-menu-panel" id="index-menu-panel" aria-hidden="true">
+        <div class="index-menu-overlay"></div>
+        <div class="index-menu-drawer" data-lenis-prevent>
+            <div class="index-menu-inner">
+                <%- include('./_anchor.ejs', { isMenu: true }) %>
+                <div class="more-btn index-menu-allitems">
+                    <a href="#allitems">
+                        <span class="more-btn-en en">ALL ITEMS</span>
+                        <span class="more-btn-ja">アイテム一覧</span>
+                        <span class="tri tri-down"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="index-menu-btn en-bold" aria-controls="index-menu-panel" aria-expanded="false">
+        <span class="index-menu-btn-open">INDEX</span>
+        <span class="index-menu-btn-close">CLOSE</span>
+    </button>
+</div>

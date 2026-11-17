@@ -1,0 +1,28 @@
+<%#
+  カテゴリーセクション共通（NEW / ICON / EXCLUSIVE）
+  category: { id, theme, en, ja, lead, btnEn, btnJa, items }
+  theme: 'black' | 'white' | 'gray'
+%>
+<section class="category category-<%= category.theme %>" id="<%= category.id %>">
+    <div class="category-head">
+        <div class="category-ttl-wrap">
+            <h2 class="category-ttl en-bold"><%= category.en %></h2>
+            <p class="category-subttl"><%= category.ja %></p>
+        </div>
+        <p class="category-lead"><%= category.lead %></p>
+    </div>
+
+    <div class="category-items">
+        <% category.items.forEach((item, i) => { %>
+        <%- include('./_item.ejs', { item: item, num: i + 1 }) %>
+        <% }) %>
+    </div>
+
+    <div class="more-btn category-btn">
+        <a href="#all-<%= category.id %>">
+            <span class="more-btn-en en"><%= category.btnEn %></span>
+            <span class="more-btn-ja"><%= category.btnJa %></span>
+            <span class="tri tri-down"></span>
+        </a>
+    </div>
+</section>
