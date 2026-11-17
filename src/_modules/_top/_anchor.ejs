@@ -1,7 +1,7 @@
 <%#
   カテゴリーへのリンク一覧
   MV下と、SPのINDEXメニュー（_index-menu.ejs）の2か所で使用
-  isMenu: true のときはINDEXメニュー用（id="index" を付けない）
+  isMenu: true のときはINDEXメニュー用（id="index" と、スクロールで表示する active を付けない）
 %>
 <%
   const isMenu = locals.isMenu || false
@@ -12,18 +12,20 @@
   ]
 %>
 <nav class="anchor-wrap"<% if (!isMenu) { %> id="index"<% } %>>
-    <ul class="anchor-list">
+    <ul class="anchor-list<% if (!isMenu) { %> active<% } %>">
         <% anchors.forEach((anchor) => { %>
         <li>
             <a href="#<%= anchor.id %>" class="anchor-link">
                 <div class="anchor-text">
                     <p class="anchor-en en">
-                        <%= anchor.en %>
+                        <span><%= anchor.en %></span>
                         <span class="tri tri-down"></span>
                     </p>
-                    <p class="anchor-ja"><%= anchor.ja %></p>
+                    <p class="anchor-ja">
+                        <span><%= anchor.ja %></span>
+                    </p>
                 </div>
-                <p class="anchor-styles">( <%= anchor.styles %> STYLES )</p>
+                <p class="anchor-styles"><span>( <%= anchor.styles %> STYLES )</span></p>
                 <div class="anchor-img">
                     <img src="<%= rootURL %>/assets/img/<%= anchor.img %>" alt="">
                 </div>

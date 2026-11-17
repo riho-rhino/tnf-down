@@ -56,7 +56,11 @@
     margin-top: spf(150);
     text-align: right;
     @include pc{
-        margin: pcf(100) 0 0 calc((1778 + 495) / 2535) * 100%;
+        // PCはクレジット（左下）と同じ高さに並ぶため、縦の並びから外して配置する
+        position: absolute;
+        top: pcf(750);
+        left: calc(2373 / 2735) * 100%;
+        margin: 0;
         text-align: left;
     }
 }

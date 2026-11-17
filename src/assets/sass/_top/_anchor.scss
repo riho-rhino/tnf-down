@@ -12,11 +12,52 @@
 }
 
 .anchor-list{
+    // スクロールで表示（MV下のリストのみ。INDEXメニュー内のリストには active が付かないので常に表示）
+    // .active → 画面に入ると .move が付く（_scroll-active.js）
+    &.active > li{
+        clip-path: inset(0 100% 0 0);
+        .anchor-en,.anchor-ja,.anchor-styles{
+            overflow: hidden;
+            span{
+                transform: translateY(80px);
+                transition: transform 1s cubic-bezier(0.83, 0, 0.17, 1);;
+            }
+        }
+        .anchor-img{
+            overflow: hidden;
+            img{
+                transform: translateX(100px);
+                transition: transform 2s cubic-bezier(0.83, 0, 0.17, 1);;
+            }
+        }
+        .anchor-ja,.anchor-styles{
+            span{
+                display: block;
+                transition-delay: .3s;
+            }
+        }
+        
+    }
+    &.active.move > li{
+        clip-path: inset(0);
+        .anchor-en,.anchor-ja,.anchor-styles{
+            span{
+                transform: translateY(0);
+            }
+        }
+        .anchor-img{
+            img{
+                transform: translateX(0);
+            }
+        }
+    }
     > li{
+        transition: clip-path 1.5s cubic-bezier(0.22, 1, 0.36, 1);
         border-top: solid 1px currentColor;
         & + li{
             margin-top: spf(10);
         }
+        
     }
     @include pc{
         > li + li{
@@ -28,6 +69,12 @@
 .anchor-link{
     display: flex;
     align-items: flex-start;
+    &:hover{
+        .tri-down{
+            transform: translateY(4px)!important;
+            transition: transform .3s ease!important;
+        }
+    }
 }
 
 .anchor-text{

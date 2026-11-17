@@ -3,22 +3,43 @@
 @use '../_mixin' as *;
 @use '../_common' as c;
 
-// 下の余白は、デザインでINDEXボタンが置かれていた分（ボタンは画面下部に追従：_index-menu.scss）
+// SPの下余白は、デザインでINDEXボタンが置かれていた分（ボタンは画面下部に追従：_index-menu.scss）
+// PCはMVの黒背景の高さ1450px（ヘッダー下〜画面下）に合わせる
 .mv-wrap{
     position: relative;
     padding: spc(40) 0 spc(132);
     @include pc{
-        padding: pcc(120) 0 pcc(121);
+        padding: pcc(120) 0 pcc(186);
     }
 }
 
+
+// mv-content_1 / mv-content_2 を grid で同じ位置に重ねる（高さは高い方に合わせる）
 .mv-inner{
     position: relative;
+    display: grid;
     padding: 0 spc(40);
+    @include pc{
+        padding: 0 pcc(100);
+    }
+}
+
+.mv-content{
+    grid-area: 1 / 1;
+    position: relative;
+    // 切り替え：6秒ごと、表示の最初と最後の0.5秒でフェード（タイミングは _mv-loop.js）
+    // 薄くなっている間は visibility: hidden でクリックできないようにする
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s linear, visibility 0s .5s;
+    &.is-active{
+        opacity: 1;
+        visibility: visible;
+        transition: opacity .5s linear, visibility 0s;
+    }
     @include pc{
         display: flex;
         justify-content: space-between;
-        padding: 0 pcc(100);
     }
 }
 
@@ -41,51 +62,147 @@
     }
 }
 
-.mv-photo{
-    display: flex;
-    justify-content: space-between;
-    margin-top: spf(162);
-    &-main{
-        width: calc(380 / 670) * 100%;
-        aspect-ratio: 380 / 460;
+.mv-content{
+    &.is-active{
+        .mv-photo{
+            &-main{
+                clip-path: inset(0);
+                img{
+                    transform: scale(1,1);
+                }
+            }
+            &-item{
+                &1,&2,&3{
+                    clip-path: inset(0);
+                    img{
+                        transform: scale(1,1);
+                    }
+                }
+            }
+        }
     }
-    &-sub{
-        width: calc(280 / 670) * 100%;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        column-gap: spf(10);
-        row-gap: spf(10);
+    .mv-photo{
+        display: flex;
+        justify-content: space-between;
+        margin-top: spf(162);
+        &-main{
+            width: calc(380 / 670) * 100%;
+            aspect-ratio: 380 / 460;
+            clip-path: inset(0 100% 0 0);
+            transition: clip-path 1.5s .5s cubic-bezier(0.83, 0, 0.17, 1);
+            overflow: hidden;
+            img{
+                transform: scale(1.1,1.1);
+                transition: transform 5.5s .5s linear;
+            }
+        }
+        &-sub{
+            width: calc(280 / 670) * 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            column-gap: spf(10);
+            row-gap: spf(10);
+        }
+        &-item{
+            aspect-ratio: 135 / 225;
+            overflow: hidden;
+            opacity: 1;
+            cursor: pointer;
+            img{
+                transform: scale(1.05,1.05);
+                transition: transform 5s 1s linear;
+            }
+            &1{
+                grid-column: 1;
+                grid-row: 1;
+                clip-path: inset(100% 0 0 0);
+                transition: clip-path 1.5s .9s cubic-bezier(0.83, 0, 0.17, 1);
+            }
+            &2{
+                grid-column: 1;
+                grid-row: 2;
+                clip-path: inset(0 0 0 100%);
+                transition: clip-path 1.5s 1.4s cubic-bezier(0.83, 0, 0.17, 1);
+            }
+            &3{
+                grid-column: 2;
+                grid-row: 2;
+                clip-path: inset(0 0 100% 0 );
+                transition: clip-path 1.5s 1.9s cubic-bezier(0.83, 0, 0.17, 1);
+            }
+        }
+        img{
+            height: 100% !important;
+            object-fit: cover;
+        }
+        @include pc{
+            width: calc(1666 / 2535) * 100%;
+            margin-top: 0;
+            &-main{
+                width: calc(945.04 / 1666) * 100%;
+                aspect-ratio: 945.04 / 1144;
+            }
+            &-sub{
+                width: calc(696.1 / 1666) * 100%;
+                column-gap: pcf(24.6);
+                row-gap: pcf(24.9);
+            }
+        }
     }
-    &-item{
-        aspect-ratio: 135 / 225;
+}
+// ---------------------------------
+// mv-content_2（2つ目のレイアウト）
+// SP：写真（小3枚が左・大1枚が右）→ タイトル → サブタイトル（右寄せ）→ 季節（左寄せ）
+// PC：写真が左、テキストが右（サブタイトル → 季節 → タイトルの順に上から）
+// ---------------------------------
+.mv-content_2{
+    .mv-photo{
+        margin-top: spf(110);
+    }
+    .mv-photo-item{
         &1{
             grid-column: 1;
             grid-row: 1;
         }
         &2{
+            grid-column: 2;
+            grid-row: 1;
+        }
+        &3{
             grid-column: 1;
             grid-row: 2;
         }
-        &3{
-            grid-column: 2;
-            grid-row: 2;
-        }
     }
-    img{
-        height: 100% !important;
-        object-fit: cover;
+    .main-ttl{
+        margin-top: spf(104);
+    }
+    .main-subttl{
+        margin-top: spf(15);
+        text-align: right;
+    }
+    .mv-season{
+        margin-top: spf(68);
+        text-align: left;
     }
     @include pc{
-        width: calc(1666 / 2535) * 100%;
-        margin-top: 0;
-        &-main{
-            width: calc(945.04 / 1666) * 100%;
-            aspect-ratio: 945.04 / 1144;
+        .mv-photo{
+            margin-top: 0;
         }
-        &-sub{
-            width: calc(696.1 / 1666) * 100%;
-            column-gap: pcf(24.6);
-            row-gap: pcf(24.9);
+        .main-ttl{
+            order: 3;
+            margin-top: pcf(184);
+            margin-left: calc(160 / 869) * 100%;
+        }
+        .main-subttl{
+            order: 1;
+            margin-top: pcf(180);
+            padding-left: calc(162 / 869) * 100%;
+            text-align: left;
+        }
+        .mv-season{
+            order: 2;
+            margin: pcf(300) 0 0;
+            padding-left: calc(657 / 869) * 100%;
         }
     }
 }
@@ -95,6 +212,7 @@
     top: 0;
     right: spc(40);
     width: spc(110);
+    z-index: 50;
     @include pc{
         right: pcc(100);
         width: pcc(175);

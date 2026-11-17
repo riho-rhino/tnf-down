@@ -83,15 +83,33 @@
 
 
 // Stay Warm with Down Jacket（MVと最後のビジュアルで共通）
+// 見た目（文字サイズ・行間・余白）はどこでも共通
 .main-ttl{
     font-size: spf(60);
     line-height: calc(55 / 60);
+    width: spf(355);
+    p{
+        overflow: hidden;
+        display: flex;
+        align-items: flex-end;
+        vertical-align: bottom;
+        justify-content: space-between;
+    }
     span{
-        font-size: calc(40 / 60) * 1em;
+        display: block;
+    }
+    .with{
+        font-size: spf(40);
+        letter-spacing: 0.001em;
     }
     @include pc{
+        width: pcf(707);
         font-size: pcf(120);
         line-height: 1;
+        white-space: nowrap;
+        .with{
+            font-size: pcf(80);
+        }
     }
 }
 .main-subttl{
@@ -107,7 +125,50 @@
 .main-season{
     font-size: spf(24);
     line-height: 1;
+    white-space: nowrap;
     @include pc{
         font-size: pcf(40);
     }
+}
+
+// MVだけの登場アニメーション
+// 動きは is-active が付いたときだけ。外れたときは .mv-content が消えきってから（0.5秒後）一瞬で初期位置に戻す
+// ※0.5秒は .mv-content のフェードアウト時間（_mv.scss の transition: opacity .5s）と合わせる
+$mv-fade-out: .5s;
+.mv-content{
+    .main-ttl span{
+        transform: translateY(150px);
+        transition: transform 0s $mv-fade-out;
+    }
+    .main-subttl,.main-season{
+        opacity: 0;
+        transition: opacity 0s $mv-fade-out;
+    }
+    &.is-active{
+        .main-ttl{
+            span{
+                transform: translateY(-4px);
+                transition: transform 2s cubic-bezier(0.83, 0, 0.17, 1);
+                @include pc{
+                    transform: translateY(-10px);
+                }
+            }
+            .with{
+                transition-delay: .5s;
+            }
+            .second{
+                transition-delay: 1s;
+            }
+        }
+        .main-subttl,.main-season{
+            opacity: 1;
+            transition: opacity 1s 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+        }
+    }
+}
+
+/* JS読み込み前のチラつき防止 */
+.js-clip-reveal {
+  clip-path: inset(0 0 100% 0);
+  transform: translateY(20px);
 }

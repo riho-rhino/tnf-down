@@ -1,28 +1,61 @@
 <div class="mv-wrap">
-    <div class="mv-inner">
-        <div class="mv-head">
-            <h1 class="main-ttl en-bold">Stay Warm <span>with</span><br>Down Jacket</h1>
-            <p class="main-subttl">ダウンジャケットで<br>暖かく過ごそう</p>
-            <p class="main-season mv-season">2026 秋 / 冬</p>
-        </div>
-        <div class="mv-photo">
-            <div class="mv-photo-main js-parallax">
-                <img src="<%= rootURL %>/assets/img/mv_1.jpg" alt="">
+    <a href="#new" class="mv-inner">
+        <%# 2つのレイアウトを6秒ごとにフェードで切り替える（_mv-loop.js）。表示中の方に is-active（ページを開いた直後にJSで付与） %>
+        <div class="mv-content mv-content_1">
+            <div class="mv-head">
+                <h1 class="main-ttl en-bold">
+                    <p><span>Stay Warm </span><span class="with">with</span></p>
+                    <p><span class="second">Down Jacket</span></p>
+                </h1>
+                <p class="main-subttl">ダウンジャケットで<br>暖かく過ごそう</p>
+                <p class="main-season mv-season">2026 秋 / 冬</p>
             </div>
-            <div class="mv-photo-sub">
-                <div class="mv-photo-item mv-photo-item1 js-parallax">
-                    <img src="<%= rootURL %>/assets/img/mv_2.jpg" alt="">
+            <div class="mv-photo">
+                <div class="mv-photo-main">
+                    <img src="<%= rootURL %>/assets/img/mv_1.jpg" alt="">
                 </div>
-                <div class="mv-photo-item mv-photo-item2 js-parallax">
-                    <img src="<%= rootURL %>/assets/img/mv_3.jpg" alt="">
+                <div class="mv-photo-sub">
+                    <div class="mv-photo-item mv-photo-item1">
+                        <img src="<%= rootURL %>/assets/img/mv_2.jpg" alt="">
+                    </div>
+                    <div class="mv-photo-item mv-photo-item2">
+                        <img src="<%= rootURL %>/assets/img/mv_3.jpg" alt="">
+                    </div>
+                    <div class="mv-photo-item mv-photo-item3">
+                        <img src="<%= rootURL %>/assets/img/mv_4.jpg" alt="">
+                    </div>
                 </div>
-                <div class="mv-photo-item mv-photo-item3 js-parallax">
-                    <img src="<%= rootURL %>/assets/img/mv_4.jpg" alt="">
+            </div>
+        </div>
+        <%# テキストは mv-content_1 と同じ内容のため、読み上げは1回で済むよう aria-hidden %>
+        <div class="mv-content mv-content_2" aria-hidden="true">
+            <div class="mv-photo">
+                <div class="mv-photo-sub">
+                    <div class="mv-photo-item mv-photo-item1">
+                        <img src="<%= rootURL %>/assets/img/mv2_2.jpg" alt="">
+                    </div>
+                    <div class="mv-photo-item mv-photo-item2">
+                        <img src="<%= rootURL %>/assets/img/mv2_3.jpg" alt="">
+                    </div>
+                    <div class="mv-photo-item mv-photo-item3">
+                        <img src="<%= rootURL %>/assets/img/mv2_4.jpg" alt="">
+                    </div>
                 </div>
+                <div class="mv-photo-main">
+                    <img src="<%= rootURL %>/assets/img/mv2_1.jpg" alt="">
+                </div>
+            </div>
+            <div class="mv-head">
+                <h1 class="main-ttl en-bold">
+                    <p><span>Stay Warm </span><span class="with">with</span></p>
+                    <p><span class="second">Down Jacket</span></p>
+                </h1>
+                <p class="main-subttl">ダウンジャケットで<br>暖かく過ごそう</p>
+                <p class="main-season mv-season">2026 秋 / 冬</p>
             </div>
         </div>
         <div class="mv-logo">
-            <img src="<%= rootURL %>/assets/img/logo.svg" alt="THE NORTH FACE">
+            <img src="<%= rootURL %>/assets/img/tnf_logo.png" alt="THE NORTH FACE">
         </div>
-    </div>
+    </a>
 </div>

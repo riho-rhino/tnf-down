@@ -28,8 +28,8 @@ $ease: cubic-bezier(0.65, 0, 0.35, 1);
         display: block;
         position: absolute;
         // パネルの下には敷かない（重なるとパネルのぼかしが暗くなりすぎるため）
-        inset: 0 pcc(970) 0 0;
-        background: rgba(0, 0, 0, 0.5);
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
         opacity: 0;
         transition: opacity .6s ease;
         cursor: pointer;
@@ -45,9 +45,9 @@ $ease: cubic-bezier(0.65, 0, 0.35, 1);
     overflow-y: auto;
     overscroll-behavior: contain;
     color: c.$white;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(50px);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
     // SP：下から上へ開く
     clip-path: inset(100% 0 0 0);
     transition: clip-path .6s $ease;

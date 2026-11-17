@@ -40,6 +40,7 @@
     display: flex;
     align-items: flex-start;
     gap: spf(20);
+    overflow: hidden;
     @include pc{
         gap: pcf(35);
     }
@@ -47,6 +48,16 @@
 .category-ttl{
     font-size: spf(100);
     line-height: 1;
+    &.move{
+        span{
+            transform: translateY(0);
+        }
+    }
+    span{
+        display: block;
+        transform: translateY(80px);
+        transition: transform 1s cubic-bezier(0.83, 0, 0.17, 1);;
+    }
     @include pc{
         font-size: pcf(150);
     }
@@ -54,6 +65,16 @@
 .category-subttl{
     font-size: spf(22);
     line-height: 1;
+    &.move{
+        span{
+            transform: translateY(0);
+        }
+    }
+    span{
+        display: block;
+        transform: translateY(-40px);
+        transition: transform 1s cubic-bezier(0.83, 0, 0.17, 1);;
+    }
     @include pc{
         font-size: pcf(40);
     }
