@@ -6,7 +6,7 @@
 .allitems{
     padding: spc(150) 0;
     color: c.$black;
-    background: c.$white;
+    --bg-color: #{c.$white}; // 背景色は body（_bg-change.js）
     @include pc{
         padding: pcc(300) 0;
     }
@@ -17,11 +17,42 @@
     @include pc{
         padding: 0 pcc(100);
     }
+    .category-ttl-wrap{
+        position: inherit!important;
+        margin-left: 0!important;
+    }
 }
 
 .allitems-category{
     margin-top: spf(125);
-    border-top: solid 1px currentColor;
+    position: relative;
+    // 各カテゴリーの「ALL ITEMS」ボタンからスクロールしてきたとき、上に空ける余白（_smooth-scroll.js）
+    // SP：375px幅で80px / PC：1440px幅で約169px（画面幅に合わせて伸び縮み）
+    scroll-margin-top: spf(160);
+    @include pc{
+        scroll-margin-top: pcf(320);
+    }
+    &::before{
+        content: "";
+        width: 100%;
+        height: 1px;
+        top: 0;
+        left: 0;
+        position: absolute;
+        background: currentColor;
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 1.5s cubic-bezier(0.83, 0, 0.17, 1);
+    }
+    &.move{
+        &::before{
+            clip-path: inset(0);
+        }
+        .allitems-text{
+            span{
+                transform: translateY(0);
+            }
+        }
+    }
     .category-ttl-wrap + &{
         margin-top: spf(49);
     }
@@ -37,6 +68,14 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+}
+.allitems-text{
+    overflow: hidden;
+    span{
+        transform: translateY(50px);
+        transition: all 1s .3s cubic-bezier(0.83, 0, 0.17, 1);
+        display: block;
+    }
 }
 .allitems-en{
     padding-top: spf(20);
@@ -74,18 +113,81 @@
     row-gap: spf(45);
     margin-top: spf(35);
     @include pc{
-        grid-template-columns: repeat(4, 1fr);
-        column-gap: calc(61 / 2535) * 100%;
+        // パネルはどのカテゴリーも同じ大きさ（Figma：467×623、間隔50 の5列）
+        // 商品が5つより少ないカテゴリーは左から詰めて並べる
+        grid-template-columns: repeat(5, 1fr);
+        column-gap: calc(50 / 2535) * 100%;
         row-gap: pcf(61);
         margin-top: pcf(73);
     }
+    &.move{
+        li{
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    li{
+        transform: translateX(-10px);
+        opacity: 0;
+        transition: opacity .8s ease,transform .8s linear;
+        &:nth-of-type(1){
+            transition-delay: .4s;
+        }
+        &:nth-of-type(2){
+            transition-delay: .6s;
+        }
+        &:nth-of-type(3){
+            transition-delay: 1s;
+        }
+        &:nth-of-type(4){
+            transition-delay: 1.2s;
+        }
+        &:nth-of-type(5){
+            transition-delay: 1.4s;
+        }
+        a{
+            transition: all .3s ease;
+            // マウスで操作する端末だけ（スマホでタップ後にホバーの状態が残らないように）
+            @media (hover: hover){
+                &:hover{
+                    opacity: 1;
+                    img{
+                        transform: scale(1.04,1.04);
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 .allitems-img{
+    position: relative;
     aspect-ratio: 3 / 4;
+    overflow: hidden;
     img{
         height: 100% !important;
         object-fit: cover;
+        transition: all .5s ease;
+        transform: scale(1,1);
+    }
+}
+
+// 最初は商品画像。撮影カットを上に重ねておき、切り替えるときにフェードで表示する
+// PC（マウス操作の端末）：ホバーで表示
+// SP（タッチ操作の端末）：1回目のタップで .is-shot が付いて表示（_allitems-tap.js）
+.allitems-img-shot{
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+}
+.allitems-link.is-shot .allitems-img-shot{
+    opacity: 1;
+}
+@media (hover: hover){
+    .allitems-link:hover .allitems-img-shot{
+        opacity: 1;
     }
 }
 
@@ -97,6 +199,7 @@
         text-decoration: underline;
         text-underline-offset: 0.12em;
         text-decoration-thickness: 1px;
+        
     }
     @include pc{
         margin-top: pcf(20);

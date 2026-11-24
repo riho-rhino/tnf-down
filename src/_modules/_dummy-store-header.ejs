@@ -1,0 +1,109 @@
+<%#
+  ★確認用のダミー：ストア共通ヘッダー（.store_header_wrap）
+  本番では先方のサーバーで自動的に入るため、納品前に index.ejs の include の行を消すこと
+  （このファイルにHTML・CSS・JSをすべてまとめているので、include を消せば何も残らない）
+
+  再現している動き（goldwin.co.jp/store/brand/tnf/koreacollection を計測）
+    SP（919px以下）：高さ48px。スクロールすると上に固定
+    PC（920px以上）：高さ112px（中身は48px、上下に余白32px）、ロゴ大きめ（高さ20px）
+                     スクロールすると高さ48pxの帯になって上に固定し、ロゴが高さ12pxに縮む
+    ・固定されるきっかけ：ヘッダーの中身（.store_header）の上端が画面の上端まで来たとき
+    ・固定されても .store_header_wrap 自体の高さは変わらない（下のコンテンツがずれない）
+%>
+<style>
+.store_header_wrap{
+    position: relative;
+    z-index: 150;
+    height: 48px;
+    background: #fff;
+}
+.store_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 48px;
+    padding: 0 24px;
+    background: #fff;
+    z-index: 100;
+}
+.store_header_wrap.fixed-sp .store_header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.store_header_logo{
+    margin: 0;
+    line-height: 0;
+}
+.store_header_logo img{
+    width: auto;
+    height: 12px;
+    transition: .3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.store_header_search_area{
+    display: flex;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.store_header_item{
+    width: 24px;
+    height: 24px;
+}
+.store_header_item svg{
+    display: block;
+}
+@media (min-width: 920px){
+    .store_header_wrap{
+        height: 112px;
+        padding-top: 32px;
+    }
+    .store_header{
+        padding: 0 40px;
+    }
+    .store_header_logo img{
+        height: 20px;
+    }
+    .store_header_wrap.fixed-sp .store_header_logo img{
+        height: 12px;
+    }
+    .store_header_search_area{
+        gap: 20px;
+    }
+}
+</style>
+
+<header class="store_header_wrap">
+    <div class="store_header store_inner">
+        <h1 class="store_header_logo">
+            <a href="#"><img src="https://www.goldwin.co.jp/static/full/images/store/logo_black_store.svg" alt="Goldwin Online Store"></a>
+        </h1>
+        <ul class="store_header_search_area">
+            <%# 検索・お気に入り・カート・メニュー（見た目だけのダミー） %>
+            <li class="store_header_item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.2"><circle cx="11" cy="11" r="8"/><path d="M16.8 16.8l4.8 4.8"/></svg></li>
+            <li class="store_header_item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.2"><path d="M6 3h12v18l-6-5-6 5z"/></svg></li>
+            <li class="store_header_item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.2"><path d="M4 8h16l-1 13H5z"/><path d="M8.5 8V6.5a3.5 3.5 0 0 1 7 0V8"/></svg></li>
+            <li class="store_header_item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" stroke-width="1.2"><path d="M3 9h18M3 15h18"/></svg></li>
+        </ul>
+    </div>
+</header>
+
+<script>
+(() => {
+    const wrap = document.querySelector('.store_header_wrap')
+    // 固定前の .store_header の上端の位置（ページの上からの距離 = wrap の上端 + wrap の上の余白）
+    const getLine = () => wrap.getBoundingClientRect().top + window.scrollY + parseFloat(getComputedStyle(wrap).paddingTop)
+    let line = getLine()
+    const check = () => {
+        wrap.classList.toggle('fixed-sp', window.scrollY > line)
+    }
+    window.addEventListener('scroll', check, { passive: true })
+    window.addEventListener('resize', () => {
+        line = getLine()
+        check()
+    })
+    check()
+})()
+</script>

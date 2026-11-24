@@ -1,4 +1,4 @@
-import { scrollToTarget, stopScroll, startScroll } from './_smooth-scroll'
+import { scrollToTarget, stopScroll, startScroll, onScroll } from './_smooth-scroll'
 
 // 下部に追従するINDEXボタン。押すとメニューが開く（SP：下から全画面 / PC：右からパネル）
 export const initIndexMenu = () => {
@@ -9,12 +9,14 @@ export const initIndexMenu = () => {
 
   const open = () => {
     menu.classList.add('is-open')
+    document.body.classList.add('is-menu-open') // SP：後ろのページをぼかす（_index-menu.scss）
     btn.setAttribute('aria-expanded', 'true')
     panel.setAttribute('aria-hidden', 'false')
     stopScroll()
   }
   const close = () => {
     menu.classList.remove('is-open')
+    document.body.classList.remove('is-menu-open')
     btn.setAttribute('aria-expanded', 'false')
     panel.setAttribute('aria-hidden', 'true')
     startScroll()
@@ -42,4 +44,18 @@ export const initIndexMenu = () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu.classList.contains('is-open')) close()
   })
+
+  // footer（締めのビジュアル）に入ったらボタンを隠す
+  // 判定：footer の上端が、ボタンの下端より上に来たとき（ボタンと footer が重なり始めたら）
+  const footer = document.querySelector('.ending-wrap')
+  if (footer) {
+    const checkFooter = () => {
+      const hide = footer.getBoundingClientRect().top < btn.getBoundingClientRect().bottom
+      // メニューを開いている間は隠さない
+      menu.classList.toggle('is-hidden', hide && !menu.classList.contains('is-open'))
+    }
+    onScroll(checkFooter)
+    window.addEventListener('resize', checkFooter)
+    checkFooter()
+  }
 }

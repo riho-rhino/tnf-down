@@ -22,6 +22,13 @@
 .more-btn{
     width: spc(670);
     margin: 0 auto;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: opacity .5s ease, transform 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+    &.move{
+        transform: translateY(0);
+        opacity: 1;
+    }
     a{
         position: relative;
         display: flex;
@@ -44,7 +51,7 @@
         position: absolute;
         top: 50%;
         right: spf(40);
-        transform: translateY(-50%);
+        transform: translate(0,-50%);
         &-down{
             width: spf(21.65);
             height: spf(12.75);
@@ -69,6 +76,7 @@
         }
         .tri{
             right: pcf(80);
+            transition: all .5s ease;
             &-down{
                 width: pcf(30.3);
                 height: pcf(17.25);
@@ -80,7 +88,22 @@
         }
     }
 }
-
+.category-btn{
+    &:hover{
+        .tri{
+            top: 55%;
+            
+        }
+    }
+}
+.allitems-btn{
+    &:hover{
+        .tri{
+            right: 2vw;
+            transition: all .5s ease;
+        }
+    }
+}
 
 // Stay Warm with Down Jacket（MVと最後のビジュアルで共通）
 // 見た目（文字サイズ・行間・余白）はどこでも共通
@@ -88,12 +111,14 @@
     font-size: spf(60);
     line-height: calc(55 / 60);
     width: spf(355);
+    letter-spacing: -0.05em;
     p{
         overflow: hidden;
         display: flex;
         align-items: flex-end;
         vertical-align: bottom;
         justify-content: space-between;
+        white-space: nowrap;
     }
     span{
         display: block;

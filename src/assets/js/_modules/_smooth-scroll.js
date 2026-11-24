@@ -1,13 +1,15 @@
-import Lenis from 'lenis'
-
 // なめらかスクロール（参考：shinka-masumi.jp と同じ Lenis の設定）
+// Lenis は CDN から読み込む（_footer.ejs。index.js より先に読み込むこと）
 // 「視差効果を減らす」設定のOSでは使わず、通常のスクロールにする
+// Lenis が読み込めなかった場合も、通常のスクロールで動くようにしている
 export const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 let lenis = null
 
 export const initSmoothScroll = () => {
-  if (!prefersReducedMotion) {
+  const { Lenis } = window
+  if (!Lenis) console.warn('Lenis が読み込まれていません')
+  if (Lenis && !prefersReducedMotion) {
     lenis = new Lenis({
       lerp: 0.05,
       wheelMultiplier: 1.2,
@@ -32,9 +34,12 @@ export const initSmoothScroll = () => {
   return lenis
 }
 
+// 止まる位置の上の余白は、移動先の要素の CSS「scroll-margin-top」で指定する
+// （例：_allitems.scss の .allitems-category）。指定がなければ要素の上端ぴったりに止まる
 export const scrollToTarget = (target) => {
   if (lenis) {
-    lenis.scrollTo(target, { duration: 1.4 })
+    const margin = parseFloat(getComputedStyle(target).scrollMarginTop) || 0
+    lenis.scrollTo(target, { duration: 1.4, offset: -margin })
   } else {
     target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' })
   }

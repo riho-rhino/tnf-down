@@ -4,24 +4,25 @@
 @use '../_common' as c;
 
 .category{
-    padding: spc(156) 0 spc(200);
+    padding: spc(100) 0 spc(200);
+    position: relative;
     &-black{
         --sub-color: #{c.$sub-new};
         color: c.$white;
-        background: c.$black;
+        --bg-color: #{c.$black}; // 背景色は body（_bg-change.js）
     }
     &-white{
         --sub-color: #{c.$sub-icon};
         color: c.$black;
-        background: c.$white;
+        --bg-color: #{c.$white}; // 背景色は body（_bg-change.js）
     }
     &-gray{
         --sub-color: #{c.$sub-exclusive};
         color: c.$white;
-        background: c.$gray;
+        --bg-color: #{c.$gray}; // 背景色は body（_bg-change.js）
     }
     @include pc{
-        padding: pcc(265) 0 pcc(300);
+        padding: pcc(200) 0 pcc(300);
     }
 }
 
@@ -41,13 +42,23 @@
     align-items: flex-start;
     gap: spf(20);
     overflow: hidden;
+    position: sticky;
+    top: 50px;
+    left: 0;
+    height: auto;
+    width: fit-content;
+    z-index: 100;
+    margin-left: spf(40);
+    padding-top: spf(56);
     @include pc{
+        padding-top: pcf(65);
         gap: pcf(35);
+        margin-left: pcf(100);
     }
 }
 .category-ttl{
     font-size: spf(100);
-    line-height: 1;
+    line-height: 0.8;
     &.move{
         span{
             transform: translateY(0);
@@ -56,7 +67,7 @@
     span{
         display: block;
         transform: translateY(80px);
-        transition: transform 1s cubic-bezier(0.83, 0, 0.17, 1);;
+        transition: transform 1s .5s cubic-bezier(0.83, 0, 0.17, 1);;
     }
     @include pc{
         font-size: pcf(150);
@@ -64,7 +75,8 @@
 }
 .category-subttl{
     font-size: spf(22);
-    line-height: 1;
+    line-height: 1.5;
+    overflow: hidden;
     &.move{
         span{
             transform: translateY(0);
@@ -73,7 +85,7 @@
     span{
         display: block;
         transform: translateY(-40px);
-        transition: transform 1s cubic-bezier(0.83, 0, 0.17, 1);;
+        transition: transform 1s .5s cubic-bezier(0.83, 0, 0.17, 1);;
     }
     @include pc{
         font-size: pcf(40);
@@ -81,21 +93,30 @@
 }
 
 .category-lead{
-    margin-top: spf(29);
+    margin-top: spf(60);
     font-size: spf(24);
     line-height: 1.5;
     text-align: justify;
+    padding: 0 spf(40);
     @include pc{
+        padding: pcf(65) 0 0 0;
         width: calc(1000 / 2535) * 100%;
-        margin-top: pcf(10);
+        margin-top: pcc(200);
+        margin-right: pcf(100);
         font-size: pcf(28);
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 100;
     }
 }
 
 .category-items{
     margin-top: spf(80);
+    position: relative;
+    z-index: 50;
     @include pc{
-        margin-top: pcf(104);
+        margin-top: pcf(150);
     }
 }
 

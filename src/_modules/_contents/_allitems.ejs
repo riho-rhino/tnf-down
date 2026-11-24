@@ -1,14 +1,19 @@
 <%
   // ALL ITEMS のデータ
-  // 画像は list{カテゴリー番号}_{1〜4}.jpg
+  // 画像：最初に表示する商品画像は product{カテゴリー番号}_{1〜4}.jpg
+  //       切り替わる撮影カットは list{カテゴリー番号}_{1〜4}.jpg
+  //       （ICON の5つ目 product2_5 / list2_5 は仮で4つ目のコピー）
+  // 並び：PCは5列・SPは2列。パネルの大きさはどのカテゴリーも同じ（商品が少ない列は左詰め）
+  // PC：ホバーで撮影カットに切り替わり、クリックでアイテムページへ
+  // SP：1回目のタップで撮影カットに切り替わり、2回目のタップでアイテムページへ（_allitems-tap.js）
   const dummyItem = { name: 'Novelty Baltoro Light Jacket', price: '￥68,200（tax in）', url: '' }
   const lists = [
-    { id: 'new', en: 'NEW', ja: '新作', items: [dummyItem, dummyItem, dummyItem, dummyItem] },
-    { id: 'icon', en: 'ICON', ja: '定番', items: [dummyItem, dummyItem, dummyItem, dummyItem] },
+    { id: 'new', en: 'NEW', ja: '新作', items: [dummyItem, dummyItem, dummyItem] },
+    { id: 'icon', en: 'ICON', ja: '定番', items: [dummyItem, dummyItem, dummyItem, dummyItem, dummyItem] },
     { id: 'exclusive', en: 'EXCLUSIVE', ja: '別注モデル', items: [dummyItem, dummyItem, dummyItem, dummyItem] },
   ]
 %>
-<section class="allitems" id="allitems">
+<section class="allitems js-bg-section" id="allitems">
     <div class="allitems-inner">
         <div class="category-ttl-wrap">
             <h2 class="category-ttl en-bold active"><span>ALL ITEMS</span></h2>
@@ -16,20 +21,21 @@
         </div>
 
         <% lists.forEach((list, i) => { %>
-        <div class="allitems-category" id="all-<%= list.id %>">
+        <div class="allitems-category active" id="all-<%= list.id %>">
             <div class="allitems-head">
                 <div>
-                    <h3 class="allitems-en en"><%= list.en %></h3>
-                    <p class="allitems-ja"><%= list.ja %></p>
+                    <h3 class="allitems-en allitems-text en"><span><%= list.en %></span></h3>
+                    <p class="allitems-ja allitems-text"><span><%= list.ja %></span></p>
                 </div>
-                <p class="allitems-styles">( <%= list.items.length %> STYLES )</p>
+                <p class="allitems-styles allitems-text"><span>( <%= list.items.length %> STYLES )</span></p>
             </div>
-            <ul class="allitems-list">
+            <ul class="allitems-list active">
                 <% list.items.forEach((item, j) => { %>
                 <li>
-                    <a href="<%= item.url %>">
+                    <a href="<%= item.url %>" class="allitems-link">
                         <div class="allitems-img">
-                            <img src="<%= rootURL %>/assets/img/list<%= i + 1 %>_<%= j + 1 %>.jpg" alt="">
+                            <img class="allitems-img-product" src="<%= rootURL %>/assets/img/product<%= i + 1 %>_<%= j + 1 %>.jpg" alt="">
+                            <img class="allitems-img-shot" src="<%= rootURL %>/assets/img/list<%= i + 1 %>_<%= j + 1 %>.jpg" alt="">
                         </div>
                         <p class="allitems-name en"><span><%= item.name %></span></p>
                         <p class="allitems-price en"><%= item.price %></p>

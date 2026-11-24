@@ -25,6 +25,7 @@
         }
         .anchor-img{
             overflow: hidden;
+            transform-origin: top center;
             img{
                 transform: translateX(100px);
                 transition: transform 2s cubic-bezier(0.83, 0, 0.17, 1);;
@@ -46,11 +47,13 @@
             }
         }
         .anchor-img{
+            animation: anchorDown 1s 1.35s ease;
             img{
                 transform: translateX(0);
             }
         }
     }
+    
     > li{
         transition: clip-path 1.5s cubic-bezier(0.22, 1, 0.36, 1);
         border-top: solid 1px currentColor;
@@ -134,5 +137,15 @@
     @include pc{
         width: calc(120 / 770) * 100%;
         aspect-ratio: 120 / 160;
+    }
+}
+
+
+@keyframes anchorDown {
+    0%,100%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(5deg);
     }
 }

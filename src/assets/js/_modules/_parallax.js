@@ -7,6 +7,16 @@ import { onScroll, prefersReducedMotion } from './_smooth-scroll'
 //               data-float-speed で速さを変えられる。初期値 0.08（画面の高さに対する割合）
 // どちらも要素が画面の中央に来たとき、デザインどおりの位置になる
 
+// ページ上の本来の位置（transform / translate の影響を受けない）
+const getPageTop = (el) => {
+  let top = 0
+  while (el) {
+    top += el.offsetTop
+    el = el.offsetParent
+  }
+  return top
+}
+
 const clamp = (value) => Math.min(1, Math.max(-1, value))
 
 // 画面中央からのずれ（-1〜1）。画面下から入ってくるとき 1、上に抜けるとき -1
@@ -44,14 +54,12 @@ export const initParallax = () => {
     })
 
     floatItems.forEach(({ el, speed }) => {
-      // transform前の位置で計算するため、今の移動量を差し引く
-      const current = parseFloat(el.dataset.floatY || 0)
-      const rect = el.getBoundingClientRect()
-      const baseRect = { top: rect.top - current, height: rect.height }
-      if (baseRect.top + rect.height < -vh * 0.5 || baseRect.top > vh * 1.5) return
+      // 移動・拡大（.js-scale-up）の影響を受けない、本来の位置で計算する
+      const baseRect = { top: getPageTop(el) - window.scrollY, height: el.offsetHeight }
+      if (baseRect.top + baseRect.height < -vh * 0.5 || baseRect.top > vh * 1.5) return
       const y = getProgress(baseRect, vh) * vh * speed
-      el.dataset.floatY = y
-      el.style.transform = `translate3d(0, ${y.toFixed(2)}px, 0)`
+      // transform ではなく translate で動かす（.js-scale-up の transform: scale() と両立させるため）
+      el.style.translate = `0 ${y.toFixed(2)}px`
     })
   }
 

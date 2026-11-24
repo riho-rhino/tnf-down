@@ -35,12 +35,25 @@ html.lenis,html.lenis body{
     }
 }
 .js-float{
+    // 移動は translate で行う（.js-scale-up の transform: scale() と両立させるため）
+    will-change: translate;
+}
+
+// .js-scale-up：下から入ってきて、スクロールに合わせて大きくなる（0.82倍 → 原寸）
+// 進み具合 --p（0〜1）は assets/js/_modules/_scale-up.js が計算して渡す
+.js-scale-up{
+    --p: 0;
+    --scale-start: 0.82;
+    transform: scale(calc(var(--scale-start) + (1 - var(--scale-start)) * var(--p)));
+    transform-origin: center center;
     will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce){
-    .js-parallax img,
-    .js-float{
+    .js-parallax img{
         transform: none !important;
+    }
+    .js-float{
+        translate: none !important;
     }
 }

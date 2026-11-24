@@ -6,6 +6,7 @@
 // SPの下余白は、デザインでINDEXボタンが置かれていた分（ボタンは画面下部に追従：_index-menu.scss）
 // PCはMVの黒背景の高さ1450px（ヘッダー下〜画面下）に合わせる
 .mv-wrap{
+    --bg-color: #{c.$black}; // 背景色は body（_bg-change.js）。リード・アンカーもこの色のまま
     position: relative;
     padding: spc(40) 0 spc(132);
     @include pc{

@@ -10,16 +10,16 @@
 <div class="item item-<%= item.type %>">
 
     <% if (item.type === 'a') { %>
-    <figure class="item-img item-img-l js-parallax"><img src="<%= img(1) %>" alt=""></figure>
-    <figure class="item-img item-img-l js-parallax"><img src="<%= img(2) %>" alt=""></figure>
+    <figure class="item-img active item-img-l item-img-l-1"><div class="item-img-mask"><div class="item-img-inner"><img src="<%= img(1) %>" alt=""></div></div></figure>
+    <figure class="item-img active item-img-l item-img-l-2"><div class="item-img-mask"><div class="item-img-inner"><img src="<%= img(2) %>" alt=""></div></div></figure>
     <figure class="item-img item-img-s js-float"><img src="<%= img(3) %>" alt=""></figure>
     <% } %>
 
     <% if (item.type === 'b') { %>
     <div class="item-slider">
         <div class="item-slider-track">
-            <figure class="item-img is-active js-parallax"><img src="<%= img(1) %>" alt=""></figure>
-            <figure class="item-img js-parallax"><img src="<%= img(2) %>" alt=""></figure>
+            <figure class="item-img active is-active"><div class="item-img-mask"><div class="item-img-inner"><img src="<%= img(1) %>" alt=""></div></div></figure>
+            <figure class="item-img active"><div class="item-img-mask"><div class="item-img-inner"><img src="<%= img(2) %>" alt=""></div></div></figure>
         </div>
         <ul class="item-slider-dots">
             <li class="is-active" role="button" aria-label="1枚目を表示"></li>
@@ -29,8 +29,9 @@
     <% } %>
 
     <% if (item.type === 'c') { %>
-    <figure class="item-img item-img-s js-parallax"><img src="<%= img(1) %>" alt=""></figure>
-    <figure class="item-img item-img-xl js-parallax"><img src="<%= img(2) %>" alt=""></figure>
+    <%# 画像は上に来る方が1枚目。SPは 小→大、PCは 大→小 の順に並ぶため、PC（920px以上）だけ画像を入れ替える %>
+    <figure class="item-img item-img-s"><picture><source media="(min-width: 920px)" srcset="<%= img(2) %>"><img src="<%= img(1) %>" alt=""></picture></figure>
+    <figure class="item-img item-img-xl js-scale-up"><picture><source media="(min-width: 920px)" srcset="<%= img(1) %>"><img src="<%= img(2) %>" alt=""></picture></figure>
     <% } %>
 
     <div class="item-detail js-clip-reveal">

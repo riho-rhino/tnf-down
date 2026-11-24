@@ -3,14 +3,14 @@
   category: { id, theme, en, ja, lead, btnEn, btnJa, items }
   theme: 'black' | 'white' | 'gray'
 %>
-<section class="category category-<%= category.theme %>" id="<%= category.id %>">
-    <div class="category-head">
+<section class="category category-<%= category.theme %> js-bg-section" id="<%= category.id %>">
+    <!-- <div class="category-head"> -->
         <div class="category-ttl-wrap">
             <h2 class="category-ttl en-bold active"><span><%= category.en %></span></h2>
             <p class="category-subttl active"><span><%= category.ja %></span></p>
         </div>
         <p class="category-lead js-clip-reveal"><%= category.lead %></p>
-    </div>
+    <!-- </div> -->
 
     <div class="category-items">
         <% category.items.forEach((item, i) => { %>

@@ -6,6 +6,8 @@
 // 商品ブロック
 // SPは縦に並べ、PCはflex-wrapで2段に組み替える（並び順はorderで指定）
 .item{
+    position: relative;
+    z-index: 10;
     & + .item{
         margin-top: spf(120);
     }
@@ -28,6 +30,33 @@
     }
 }
 
+// 画像が開いて表示される動き（.move が付いたら開く：_scroll-active.js）
+// clip-path ではなく transform で行う
+// （iPhone の Safari では、動く画像が重なると clip-path の途中経過が描かれず、いきなり表示されるため）
+// 外側（mask）を --rx / --ry だけずらし、内側（inner）を逆向きに同じだけずらす
+// → 画像は動かず、見える範囲だけが広がっていく
+//   例：--rx: 100%  → 右から開く（左へ広がる）  --rx: -100% → 左から開く
+//       --ry: 100%  → 下から開く               --ry: -100% → 上から開く
+// 開き始めの遅れは --reveal-delay
+.item-img-mask,
+.item-img-inner{
+    height: 100%;
+    transition: transform 1s cubic-bezier(0.83, 0, 0.17, 1) var(--reveal-delay, 0s);
+}
+.item-img-mask{
+    overflow: hidden;
+    transform: translate(var(--rx, 0%), var(--ry, 0%));
+}
+.item-img-inner{
+    transform: translate(calc(var(--rx, 0%) * -1), calc(var(--ry, 0%) * -1));
+}
+.item-img.move{
+    .item-img-mask,
+    .item-img-inner{
+        transform: none;
+    }
+}
+
 .item-detail{
     margin-top: spf(80);
     padding: 0 spc(40);
@@ -47,6 +76,14 @@
         & + .item-img-l{
             margin-top: spf(10);
         }
+        // 開く向き（上の .item-img-mask を参照）
+        &-1{
+            --rx: 100%; // 右から
+        }
+        &-2{
+            --rx: -100%; // 左から
+            --reveal-delay: .3s;
+        }
     }
     .item-img-s{
         z-index: 1;
@@ -58,9 +95,13 @@
             order: 1;
             width: pcc(1200);
             margin-left: pcc(150);
+            &-2{
+                --rx: 100%; // PCは右から
+            }
             & + .item-img-l{
                 margin: 0 0 0 pcc(35);
             }
+            
         }
         .item-detail{
             order: 2;
@@ -81,7 +122,13 @@
     // SP：画像を重ねて、is-active の1枚をフェードで表示
     &-track{
         position: relative;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 750 / 937;
+        // スワイプ（_fade-slider.js）：縦スクロールはブラウザに任せ、横の動きはJSで受け取る
+        touch-action: pan-y;
+        user-select: none;
+        img{
+            -webkit-user-drag: none; // マウスで画像をドラッグしてしまわないように
+        }
         .item-img{
             position: absolute;
             inset: 0;
@@ -116,13 +163,21 @@
         &-track{
             display: flex;
             aspect-ratio: auto;
+            touch-action: auto;
+            user-select: auto;
             .item-img{
                 position: relative;
                 inset: auto;
                 width: 50%;
                 aspect-ratio: 4 / 5;
                 opacity: 1;
-                transition: none;
+                // 開く向き（.item-img-mask を参照）
+                &:first-child{
+                    --ry: 100%; // 下から
+                }
+                &:last-child{
+                    --ry: -100%; // 上から
+                }
             }
         }
         &-dots{
@@ -146,16 +201,17 @@
     @include pc{
         .item-img-xl{
             order: 1;
-            width: pcc(1600);
-            margin: 0 0 0 pcc(567);
+            width: pcc(1400);
+            margin: 0 0 0 pcc(667);
         }
         .item-img-s{
             order: 2;
             width: pcc(600);
-            margin: pcf(120) 0 0 pcc(567);
+            margin: pcf(120) 0 0 pcc(667);
         }
         .item-detail{
             order: 3;
+            width: pcc(700);
             margin-left: pcc(120);
         }
     }

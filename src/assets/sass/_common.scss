@@ -15,11 +15,11 @@ $sub-exclusive: #d3d3d3;
 
 
 .tnf-down-wrapper{
-    overflow: hidden;
+    // hidden だと中の position: sticky が効かなくなるため clip（はみ出しを切るだけで、スクロールする箱にならない）
+    overflow: clip;
     width: 100%;
     position: relative;
     color: $white;
-    background: $black;
     letter-spacing: -0.08em;
 
     img{
@@ -37,7 +37,10 @@ $sub-exclusive: #d3d3d3;
 }
 
 
+// 背景色は body に1つだけ持たせ、スクロールに合わせて変える（_bg-change.js）
+// 各セクションの色は --bg-color に指定（例：_category.scss）。ここはJSが動く前の初期色
 body{
+    background-color: $black;
     font-family: "biz-udmincho", sans-serif;
     font-weight: 400;
     font-style: normal;

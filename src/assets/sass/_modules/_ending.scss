@@ -8,12 +8,12 @@
     aspect-ratio: 750 / 950;
     overflow: hidden;
     color: c.$white;
-    &::after{
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-    }
+    // &::after{
+    //     content: "";
+    //     position: absolute;
+    //     inset: 0;
+    //     background: rgba(0, 0, 0, 0.5);
+    // }
     @include pc{
         aspect-ratio: 2735 / 1140;
     }
@@ -25,14 +25,19 @@
     img{
         height: 100% !important;
         object-fit: cover;
-        object-position: 63% 50%;
-    }
-    @include pc{
-        img{
-            object-position: 63% 47%;
-        }
     }
 }
+// 2枚を重ねて、is-active の方をフェードで表示（切り替えのタイミングは _fade-loop.js）
+.ending-bg-item{
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    &.is-active{
+        opacity: 1;
+    }
+}
+// 写真はPC用（5470×2280）・SP用（750×950）とも、それぞれの枠と同じ比率に切り抜き済み
 
 .ending-inner{
     position: relative;
@@ -47,6 +52,11 @@
 }
 
 .ending-head{
+    .main-ttl{
+        p{
+            overflow: visible;
+        }
+    }
     @include pc{
         margin-left: calc(1778 / 2535) * 100%;
     }
