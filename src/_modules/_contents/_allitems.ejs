@@ -32,7 +32,7 @@
             <ul class="allitems-list active">
                 <% list.items.forEach((item, j) => { %>
                 <li>
-                    <a href="<%= item.url %>" class="allitems-link">
+                    <a href="<%= item.url %>" class="allitems-link" target="_blank" rel="noopener">
                         <div class="allitems-img">
                             <img class="allitems-img-product" src="<%= rootURL %>/assets/img/product<%= i + 1 %>_<%= j + 1 %>.jpg" alt="">
                             <img class="allitems-img-shot" src="<%= rootURL %>/assets/img/list<%= i + 1 %>_<%= j + 1 %>.jpg" alt="">

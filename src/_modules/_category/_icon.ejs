@@ -1,19 +1,9 @@
 <%
   // ICON（定番）セクションのデータ
   // 商品の画像は item{no}_1〜3.jpg（no は通し番号）
-  const styling = [
-    { name: 'CALAMINTHA/ LOW GAUGE CREW', price: '￥33,000（tax in）', url: '' },
-    { name: 'One Tuck Straight Wool Pants', price: '￥42,900（tax in）', url: '' },
-    { name: 'Ultra Mayfly Hip Pouch', price: '￥7,700（tax in）', url: '' },
-    { name: 'Insulated Powder Beanie', price: '￥7,480（tax in）', url: '' },
-  ]
+  // 商品名・価格・URL・STYLING ITEMS は商品クレジット（スプレッドシート）より。kana は各商品に記入、説明文はダミー
   const dummy = {
-    name: 'Novelty Baltoro Light Jacket',
-    kana: 'ノベルティーバルトロライトジャケット',
-    price: '￥68,200（tax in）',
     desc: '（ダミー）表地は防風・耐水仕様で多少の雨や雪にも対応。光沢感のある生地が品のある風合いで都会的なスタイリングにも最適な1着。',
-    url: '',
-    styling: styling,
   }
   const category = {
     id: 'icon',
@@ -24,11 +14,60 @@
     btnEn: 'ALL ICON ITEMS',
     btnJa: '定番アイテム 一覧',
     items: [
-      Object.assign({}, dummy, { no: 5, type: 'a' }),
-      Object.assign({}, dummy, { no: 6, type: 'c' }),
-      Object.assign({}, dummy, { no: 7, type: 'b' }),
-      Object.assign({}, dummy, { no: 8, type: 'c' }), // 画像 item13_1〜2 は仮（item6 のコピー）
-      Object.assign({}, dummy, { no: 9, type: 'a' }),
+      // LOOK4
+      Object.assign({}, dummy, {
+        no: 5, type: 'a',
+        name: 'Baltoro Light Jacket',
+        kana: 'バルトロライトジャケット',
+        price: '￥69,300（tax in）',
+        url: 'https://www.goldwin.co.jp/ap/item/i/m/ND92551',
+        styling: [
+          { name: 'Rockwall Corduroy Pant', price: '￥23,100（tax in）', url: 'https://www.goldwin.co.jp/ap/item/i/m/NB82617' },
+        ],
+      }),
+      // LOOK2
+      Object.assign({}, dummy, {
+        no: 7, type: 'c',
+        name: 'Alteration Down Shell Parka',
+        kana: 'オルタレーションダウンシェルパーカ',
+        price: '￥73,700（tax in）',
+        url: 'https://www.goldwin.co.jp/ap/item/i/m/ND92562',
+        styling: [
+          { name: 'Geology Grid Fleece Pant', price: '￥24,200（tax in）', url: 'https://www.goldwin.co.jp/ap/item/i/m/NB82662' },
+        ],
+      }),
+      // LOOK7
+      Object.assign({}, dummy, {
+        no: 6, type: 'b',
+        name: 'Ascent Jacket',
+        kana: 'アセントジャケット',
+        price: '￥40,700（tax in）',
+        url: 'https://www.goldwin.co.jp/ap/item/i/m/ND92653',
+        styling: [],
+      }),
+      // LOOK5
+      Object.assign({}, dummy, {
+        no: 13, type: 'c', // 画像 item13_1〜2 は仮（item6 のコピー）
+        name: 'Alteration Baffs Jacket',
+        kana: 'オルタレーションバフズジャケット',
+        price: '￥63,250（tax in）',
+        url: 'https://www.goldwin.co.jp/ap/item/i/m/ND92564',
+        styling: [
+          { name: 'Free Run Reversible Vest', price: '￥22,550（tax in）', url: 'https://www.goldwin.co.jp/ap/item/i/m/NL72591' },
+        ],
+      }),
+      // LOOK1
+      Object.assign({}, dummy, {
+        no: 8, type: 'a',
+        name: 'Nuptse Jacket',
+        kana: 'ヌプシジャケット',
+        price: '￥40,150（tax in）',
+        url: 'https://www.goldwin.co.jp/ap/item/i/m/ND92555',
+        styling: [
+          { name: 'Small Logo Heather Sweat Pant', price: '￥14,300（tax in）', url: 'https://www.goldwin.co.jp/ap/item/i/m/NB32636' },
+          { name: 'VECTIV Versa LS', price: '￥26,400（tax in）', url: 'https://www.goldwin.co.jp/ap/item/i/m/NF52649' },
+        ],
+      }),
     ],
   }
 %>

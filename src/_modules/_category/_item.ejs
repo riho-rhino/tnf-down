@@ -36,17 +36,20 @@
 
     <div class="item-detail js-clip-reveal">
         <p class="item-num">( <%= num %> )</p>
-        <h3 class="item-name en"><a href="<%= item.url %>"><%= item.name %></a></h3>
+        <h3 class="item-name en"><a href="<%= item.url %>" target="_blank" rel="noopener"><%= item.name %></a></h3>
         <p class="item-kana"><%= item.kana %></p>
         <p class="item-price en"><%= item.price %></p>
         <p class="item-desc"><%= item.desc %></p>
+        <%# STYLING ITEMS は商品がない場合は見出しごと出さない %>
+        <% if (item.styling && item.styling.length) { %>
         <div class="item-styling en">
             <p class="item-styling-ttl">STYLING ITEMS</p>
             <ul class="item-styling-list">
                 <% item.styling.forEach((s) => { %>
-                <li><a href="<%= s.url %>"><%= s.name %></a>　<%= s.price %></li>
+                <li><a href="<%= s.url %>" target="_blank" rel="noopener"><%= s.name %></a>　<%= s.price %></li>
                 <% }) %>
             </ul>
         </div>
+        <% } %>
     </div>
 </div>

@@ -110,7 +110,7 @@
 .main-ttl{
     font-size: spf(60);
     line-height: calc(55 / 60);
-    width: spf(355);
+    width: spf(335);
     letter-spacing: -0.05em;
     p{
         overflow: hidden;
@@ -123,18 +123,11 @@
     span{
         display: block;
     }
-    .with{
-        font-size: spf(40);
-        letter-spacing: 0.001em;
-    }
     @include pc{
-        width: pcf(707);
+        width: pcf(670);
         font-size: pcf(120);
         line-height: 1;
         white-space: nowrap;
-        .with{
-            font-size: pcf(80);
-        }
     }
 }
 .main-subttl{
@@ -187,7 +180,7 @@ $mv-fade-out: .5s;
         }
         .main-subttl,.main-season{
             opacity: 1;
-            transition: opacity 1s 1s cubic-bezier(0.39, 0.575, 0.565, 1);
+            transition: opacity 1s 3s cubic-bezier(0.39, 0.575, 0.565, 1);
         }
     }
 }
